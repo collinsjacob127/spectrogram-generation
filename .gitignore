@@ -1,0 +1,32 @@
+# Build directories
+/build/
+/CMakeFiles/
+/Makefile
+/CMakeCache.txt
+cmake_install.cmake
+
+# Binaries
+*.out
+*.x
+*.exe
+*.dll
+*.so
+*.dylib
+waveform_viewer
+
+# OS-generated
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Editor settings
+.vscode/
+.idea/
+*.swp
+*~
+
+# Backup
+*.bak
+
