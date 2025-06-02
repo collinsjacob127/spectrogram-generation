@@ -1,3 +1,8 @@
+/**
+ * Author: Jacob Collins
+ * Description:
+ *  Waveform analysis program using ImGUI, dr_wav, and tinyfiledialogs.
+ */
 // main.cpp
 #include <iostream>
 #include <vector>
@@ -62,20 +67,32 @@ int main(int, char**) {
         ImGui_ImplSDL2_NewFrame();
         ImGui::NewFrame();
 
-        ImGui::Begin("Waveform Controls");
-        if (ImGui::Button("Load WAV")) {
-            const char* file = tinyfd_openFileDialog("Open WAV", "", 0, NULL, NULL, 0);
-            if (file) samples = LoadWavSamples(file);
+        if (ImGui::BeginMainMenuBar()) {
+            if (ImGui::BeginMenu("File")) {
+                if (ImGui::MenuItem("Select .wav file")) {
+                    const char* file = tinyfd_openFileDialog("Open WAV File", "../wav-files/", 0, NULL, NULL, 0);
+                    if (file) {
+                        samples = LoadWavSamples(file);
+                        scroll = 0;
+                        zoom = 1.0f;
+                    }
+                }
+                ImGui::EndMenu();
+            }
+            ImGui::EndMainMenuBar();
         }
+
+        ImGui::Begin("Controls");
         ImGui::SliderFloat("Zoom", &zoom, 1.0f, 20.0f);
         ImGui::SliderInt("Scroll", &scroll, 0, std::max(0, (int)samples.size() - 100));
         ImGui::End();
+
 
         ImGui::Begin("Waveform");
         if (!samples.empty()) {
             int displayCount = std::max(100, (int)(samples.size() / zoom));
             int start = std::min(scroll, (int)samples.size() - displayCount);
-            ImGui::PlotLines("", samples.data() + start, displayCount, 0, NULL, -1.0f, 1.0f, ImVec2(0, 150));
+            ImGui::PlotLines("##plot", samples.data() + start, displayCount, 0, NULL, -1.0f, 1.0f, ImVec2(0, 150));
         }
         ImGui::End();
 
