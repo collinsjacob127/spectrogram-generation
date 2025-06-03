@@ -5,6 +5,10 @@
  * Sources:
  *  There was some ChatGPT usage for getting the skeleton of this project
  *  off the ground.
+ * Notes:
+ *  - gui.cpp/h has code involving the setup for the GUI, windows, controls, etc.
+ *  - audio.cpp/h has code involving the file selection, audio display/processing, 
+ *    and most of the dedicated logic in the program.
  */
 
 #include "gui.h"
@@ -24,9 +28,6 @@ int main(int, char**)
 
         // Render the top menu + controls + waveform
         renderMainWindow(app);
-        // renderMainMenu(app);
-        // renderControls(app);
-        // renderWaveform(app);
 
         app.endFrame();
     }

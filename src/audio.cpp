@@ -64,10 +64,8 @@ bool AppContext::init()
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
 
-    // ImGuiIO& io = ImGui::GetIO();
-    // io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;   // optional: keyboard nav
-    // io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;       // ←––––––––––––––––
-    // // io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;     // optional: allow separate viewports    
+    ImGuiIO& io = ImGui::GetIO();
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;   // optional: keyboard nav
 
     ImGui::StyleColorsDark();
     ImGui_ImplSDL2_InitForOpenGL(window, gl_context);
