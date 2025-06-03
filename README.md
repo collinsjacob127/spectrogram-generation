@@ -2,6 +2,19 @@
 
 This project is used to generate and analyze spectrograms and waveforms from .wav files, similar to [Raven](https://www.birds.cornell.edu/ccb/raven-pro/).
 
+## Feature Progress
+
+- [x] OpenGL + ImGUI Window Setup
+- [x] File selection + loading
+- [x] Waveform display
+  - [x] Viewport zoom + scroll
+- [ ] Spectrogram Generation
+  - [ ] Spectrogram View
+  - [ ] Spectrogram selection
+  - [ ] Spectrogram Annotation
+- [ ] File output
+- [ ] No GUI Mode
+
 ## Setup
 
 Clone the repo:
