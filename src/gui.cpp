@@ -4,47 +4,68 @@
 #include "imgui_impl_sdl2.h"
 #include "imgui_impl_opengl3.h"
 
-void renderMainMenu(AppContext& app)
+void renderMainWindow(AppContext& app)
 {
-    if (!ImGui::BeginMainMenuBar()) { return; }
+    // Window flags: show a menu bar, but allow resizing. Remove NoResize if you want it resizable.
+    ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar;
+    
+    // Start up the window
+    ImGui::Begin("Waveform Viewer", nullptr, window_flags);
+
+    // Menu Bar (File -> Select .wav file)
+    if (ImGui::BeginMenuBar())
+        handleMenuBar(app);
+
+    handleViewportControls(app);
+
+    handleWaveformViewer(app);
+
+    ImGui::End(); // End "Waveform Viewer"
+    
+}
+
+void handleMenuBar(AppContext& app) {
     if (ImGui::BeginMenu("File"))
     {
         if (ImGui::MenuItem("Select .wav file"))
         {
-            // Open native file dialog
+            // Select filepath with tinyfd
             const char* filePath = tinyfd_openFileDialog(
-                "Open WAV File", 
-                "../wav-files/",            // start in wav files dir
-                0, NULL, NULL, 
+                "Open WAV File",
+                "../wav-files/",
+                0, NULL, NULL,
                 0
             );
-            if (filePath) { app.loadSamples(filePath); }
+
+            // Verify and handle file selection
+            if (filePath)
+            {
+                app.loadSamples(filePath);
+                app.scroll = 0;
+                app.zoom = 1.0f;
+            }
         }
         ImGui::EndMenu();
     }
-    ImGui::EndMainMenuBar();
+    ImGui::EndMenuBar();
 }
 
-void renderControls(AppContext& app)
-{
-    ImGui::Begin("Controls");
-    // Zoom slider (visible label)
+void handleViewportControls(AppContext& app) {
+    ImGui::Text("Controls");
     ImGui::SliderFloat("Zoom", &app.zoom, 1.0f, 20.0f);
-    // Scroll slider (visible label)
     ImGui::SliderInt("Scroll", &app.scroll, 0, std::max(0, (int)app.samples.size() - 100));
-    ImGui::End();
+
+    ImGui::Separator();
 }
 
-void renderWaveform(AppContext& app)
-{
-    ImGui::Begin("Waveform");
+void handleWaveformViewer(AppContext& app) {
+    ImGui::Text("Waveform");
     if (!app.samples.empty())
     {
         int displayCount = std::max(100, (int)(app.samples.size() / app.zoom));
         int startIndex   = std::min(app.scroll, (int)app.samples.size() - displayCount);
 
-        ImGui::Text("Waveform");
-        // Use "##waveform" as ID so no visible label but unique ImGui ID
+        // "##waveform" gives a unique ID but no visible label
         ImGui::PlotLines(
             "##waveform",
             app.samples.data() + startIndex,
@@ -56,5 +77,4 @@ void renderWaveform(AppContext& app)
             ImVec2(0, 150)
         );
     }
-    ImGui::End();
 }

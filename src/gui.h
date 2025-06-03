@@ -1,7 +1,15 @@
 #pragma once
 #include "audio.h"   // brings in AppContext definition
 
-// Render functions, each takes the AppContext to read samples/zoom/scroll
-void renderMainMenu(AppContext& app);
-void renderControls(AppContext& app);
-void renderWaveform(AppContext& app);
+// Renders the window with everything
+void renderMainWindow(AppContext& app);
+
+void handleMenuBar(AppContext& app);
+
+void handleViewportControls(AppContext& app);
+
+void handleWaveformViewer(AppContext& app);
+
+// void renderMainMenu(AppContext& app);
+// void renderControls(AppContext& app);
+// void renderWaveform(AppContext& app);

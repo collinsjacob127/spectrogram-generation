@@ -63,6 +63,12 @@ bool AppContext::init()
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
+
+    // ImGuiIO& io = ImGui::GetIO();
+    // io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;   // optional: keyboard nav
+    // io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;       // ←––––––––––––––––
+    // // io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;     // optional: allow separate viewports    
+
     ImGui::StyleColorsDark();
     ImGui_ImplSDL2_InitForOpenGL(window, gl_context);
     ImGui_ImplOpenGL3_Init("#version 130");

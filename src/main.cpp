@@ -2,7 +2,11 @@
  * Author: Jacob Collins
  * Description:
  *  Waveform analysis program using ImGUI, dr_wav, and tinyfiledialogs.
+ * Sources:
+ *  There was some ChatGPT usage for getting the skeleton of this project
+ *  off the ground.
  */
+
 #include "gui.h"
 #include "audio.h"
 
@@ -19,9 +23,10 @@ int main(int, char**)
         app.beginFrame();
 
         // Render the top menu + controls + waveform
-        renderMainMenu(app);
-        renderControls(app);
-        renderWaveform(app);
+        renderMainWindow(app);
+        // renderMainMenu(app);
+        // renderControls(app);
+        // renderWaveform(app);
 
         app.endFrame();
     }
